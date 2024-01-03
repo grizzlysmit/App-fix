@@ -1,0 +1,29 @@
+{
+  "support": {
+    "source": "https://github.com/Francis Grizzly Smit/App::fix.git",
+    "email": "grizzly@smit.id.au",
+    "bugtracker": "https://github.com/Francis Grizzly Smit/App::fix/issues"
+  },
+  "license": "LGPL-3.0-or-later",
+  "provides": {
+    "App::fix": "bin/fix.raku"
+  },
+  "authors": [
+    "Francis Grizzly Smit <grizzly@smit.id.au>"
+  ],
+  "version": "0.1.0",
+  "description": "A Raku application for .",
+  "test-depends": [
+    ""
+  ],
+  "name": "App::fix.raku",
+  "source-url": "https://github.com/Francis Grizzly Smit/App::fix.git",
+  "perl": "6.d",
+  "auth": "zef:grizzlysmit",
+  "tags": [
+    ""
+  ],
+  "depends": [
+    ""
+  ]
+}
