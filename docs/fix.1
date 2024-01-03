@@ -1,0 +1,75 @@
+.pc
+.TH fix.raku 1 2024-01-04
+.SH App::Fix::term
+.SS Table of Contents
+.IP \(bu 2m
+NAME [#name]
+.IP \(bu 2m
+AUTHOR [#author]
+.IP \(bu 2m
+VERSION [#version]
+.IP \(bu 2m
+TITLE [#title]
+.IP \(bu 2m
+SUBTITLE [#subtitle]
+.IP \(bu 2m
+COPYRIGHT [#copyright]
+.IP \(bu 2m
+Introduction [#introduction]
+.RS 2n
+.IP \(bu 2m
+Motivation [#motivation]
+.RE
+.IP \(bu 2m
+Fix [#fix]
+.SH "NAME"
+App::fix 
+.SH "AUTHOR"
+Francis Grizzly Smit (grizzly@smit\&.id\&.au)
+.SH "VERSION"
+v0\&.1\&.1
+.SH "TITLE"
+App::fix
+.SH "SUBTITLE"
+A Raku program to fix borked (broken) terminals\&.
+.SH "COPYRIGHT"
+GPL V3\&.0+ LICENSE [https://github.com/grizzlysmit/Usage-Utils/blob/main/LICENSE]
+
+Top of Document [#table-of-contents]
+.SH Introduction
+
+This is a Raku program to fix broken (i\&.e\&. borked) terminals\&. 
+.SS Motivation
+
+Sometimes I exit a program nastily and I end up with a borked (broken) terminal like is I \fB^C\fR out of raku command line repl and I can no longer see what I am typing\&. solution run fix i\&.e\&. fix\&.raku and everything just clears up\&.
+
+So put fix in your \fBPATH\fR and type \fBfix\fR and the borked terminal should come good\&.
+.SS Fix
+
+.RS 4m
+.EX
+fix \-\-help
+Usage:
+  fix
+
+
+.EE
+.RE
+
+.RS 4m
+.EX
+use Terminal::ANSI::OO :t;
+use Term::termios;
+
+multi sub MAIN( \-\-> Int:D) {
+    my $flags := Term::termios\&.new(:fd($*IN\&.native\-descriptor))\&.getattr;
+    $flags\&.set_lflags('ICANON');
+    $flags\&.set_lflags('ECHO');
+    $flags\&.setattr(:NOW);
+    print t\&.show\-cursor ~ t\&.restore\-screen ~ t\&.clear\-screen;
+    exit 0;
+}
+
+
+.EE
+.RE
