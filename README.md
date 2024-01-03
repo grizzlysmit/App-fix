@@ -35,7 +35,7 @@ Francis Grizzly Smit (grizzly@smit.id.au)
 VERSION
 =======
 
-v0.1.1
+v0.1.0
 
 TITLE
 =====
@@ -62,7 +62,7 @@ This is a Raku program to fix broken (i.e. borked) terminals.
 Motivation
 ----------
 
-Sometimes I exit a program nastily and I end up with a borked (broken) terminal like is I **`^C`** out of raku command line repl and I can no longer see what I am typing. solution run fix i.e. fix.raku and everything just clears up.
+Sometimes I exit a program nastily and I end up with a borked (broken) terminal fore example I **`^C`** out of raku command line repl and I can no longer see what I am typing. solution run fix i.e. fix.raku and everything just clears up.
 
 So put fix in your **`PATH`** and type **fix** and the borked terminal should come good.
 

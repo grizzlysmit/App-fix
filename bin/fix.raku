@@ -27,7 +27,7 @@ Table of  Contents
 
 =NAME App::fix 
 =AUTHOR Francis Grizzly Smit (grizzly@smit.id.au)
-=VERSION v0.1.1
+=VERSION v0.1.0
 =TITLE App::fix
 =SUBTITLE A Raku program to fix borked (broken) terminals.
 
@@ -43,8 +43,8 @@ This is a Raku program to fix broken (i.e. borked) terminals.
 =head2 Motivation
 
 Sometimes I exit a program nastily and I end up with a borked (broken) terminal 
-like is I B<C<^C>> out of raku command line repl and I can no longer see what I am
-typing. solution run fix i.e. fix.raku and everything just clears up.
+fore example I B<C<^C>> out of raku command line repl and I can no longer see what
+I am typing. solution run fix i.e. fix.raku and everything just clears up.
 
 So put fix in your B<C<PATH>> and type B<fix> and the borked terminal should come good.
 
