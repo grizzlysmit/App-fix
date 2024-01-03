@@ -1,10 +1,10 @@
 {
   "support": {
-    "source": "https://github.com/Francis Grizzly Smit/App::fix.git",
+    "source": "https://github.com/grizzlysmit/App-fix.git",
     "email": "grizzly@smit.id.au",
-    "bugtracker": "https://github.com/Francis Grizzly Smit/App::fix/issues"
+    "bugtracker": "https://github.com/grizzlysmit/App-fix/issues"
   },
-  "license": "LGPL-3.0-or-later",
+  "license": "GPL-3.0-or-later",
   "provides": {
     "App::fix": "bin/fix.raku"
   },
@@ -12,16 +12,21 @@
     "Francis Grizzly Smit <grizzly@smit.id.au>"
   ],
   "version": "0.1.0",
-  "description": "A Raku application for .",
+  "description": "A Raku program to fix borked (broken) terminals.",
   "test-depends": [
     ""
   ],
   "name": "App::fix.raku",
-  "source-url": "https://github.com/Francis Grizzly Smit/App::fix.git",
+  "source-url": "https://github.com/grizzlysmit/App-fix.git",
   "perl": "6.d",
   "auth": "zef:grizzlysmit",
   "tags": [
-    ""
+    "term",
+    "fix",
+    "broken",
+    "terminal",
+    "borked",
+    "echo"
   ],
   "depends": [
     ""
