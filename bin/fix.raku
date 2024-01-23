@@ -27,7 +27,7 @@ Table of  Contents
 
 =NAME App::fix 
 =AUTHOR Francis Grizzly Smit (grizzly@smit.id.au)
-=VERSION v0.1.0
+=VERSION v0.1.1
 =TITLE App::fix
 =SUBTITLE A Raku program to fix borked (broken) terminals.
 
