@@ -3,6 +3,7 @@
 use v6;
 use Terminal::ANSI::OO :t;
 use Term::termios;
+use Usage::Utils;
 
 =begin pod
 
@@ -27,7 +28,15 @@ Table of  Contents
 
 =NAME App::fix 
 =AUTHOR Francis Grizzly Smit (grizzly@smit.id.au)
-=VERSION v0.1.1
+
+=end pod
+
+my Version:D $version = v0.1.2;
+
+=begin pod
+
+
+=VERSION v0.1.2
 =TITLE App::fix
 =SUBTITLE A Raku program to fix borked (broken) terminals.
 
@@ -77,7 +86,22 @@ multi sub MAIN( --> Int:D) {
 
 =end pod
 
-multi sub MAIN( --> Int:D) {
+sub version(--> Version:D){
+    return $version;
+}
+
+multi sub MAIN(Bool:D :v(:$version) = False,
+                    Bool:D :h(:$help) = False, Bool:D :n(:nocolor(:$nocolour)) = False --> Int:D) {
+    if $help {
+        my %named-args;
+        my @args;
+        say-coloured($*USAGE, $nocolour, |%named-args, |@args);
+        exit 0;
+    }
+    if $version {
+        say version();
+        exit 0;
+    }
     my $flags := Term::termios.new(:fd($*IN.native-descriptor)).getattr;
     $flags.set_lflags('ICANON');
     $flags.set_lflags('ECHO');

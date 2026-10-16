@@ -6,12 +6,14 @@
   },
   "license": "GPL-3.0-or-later",
   "provides": {
-    "App::fix": "bin/fix.raku"
   },
+  "bin": {
+    "fix.raku": "bin/fix.raku"
+  }, 
   "authors": [
     "Francis Grizzly Smit <grizzly@smit.id.au>"
   ],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Raku program to fix borked (broken) terminals.",
   "test-depends": [
     ""
