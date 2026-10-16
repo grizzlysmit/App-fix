@@ -31,12 +31,12 @@ Table of  Contents
 
 =end pod
 
-my Version:D $version = v0.1.3;
+my Version:D $version = v0.1.4;
 
 =begin pod
 
 
-=VERSION v0.1.3
+=VERSION v0.1.4
 =TITLE App::fix
 =SUBTITLE A Raku program to fix borked (broken) terminals.
 
@@ -91,10 +91,17 @@ sub version(--> Version:D){
 }
 
 multi sub MAIN(Bool:D :v(:$version) = False,
-                    Bool:D :h(:$help) = False, Bool:D :n(:nocolor(:$nocolour)) = False --> Int:D) {
+                    Bool:D :h(:$help) = False,
+                    Bool:D :n(:nocolor(:$nocolour)) is copy = False,
+                    Bool:D :c(:color(:$colour)) = !$nocolour --> Int:D) {
     if $help {
         my %named-args;
         my @args;
+        if ($nocolour && $colour) || (!$nocolour && !$colour) {
+            $*ERR.say: "Error: you cannot have both  --nocolour and --colour";
+            exit 1;
+        }
+        #$nocolour = $nocolour && !$colour;
         say-coloured($*USAGE, $nocolour, |%named-args, |@args);
         exit 0;
     }
