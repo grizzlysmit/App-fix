@@ -31,12 +31,12 @@ Table of  Contents
 
 =end pod
 
-my Version:D $version = v0.1.5;
+my Version:D $version = v0.1.6;
 
 =begin pod
 
 
-=VERSION v0.1.5
+=VERSION v0.1.6
 =TITLE App::fix
 =SUBTITLE A Raku program to fix borked (broken) terminals.
 
@@ -114,5 +114,43 @@ multi sub MAIN(Bool:D :v(:$version) = False,
     $flags.set_lflags('ECHO');
     $flags.setattr(:NOW);
     print t.show-cursor ~ t.restore-screen ~ t.clear-screen;
+    exit 0;
+}
+
+#`«««
+    ***********************************************************
+    *                                                         *
+    *                       USAGE Stuff                       *
+    *                                                         *
+    ***********************************************************
+#»»»
+
+sub USAGE(Bool:D :n(:nocolor(:$nocolour)) is copy = False,
+                    Bool:D :c(:color(:$colour)) = !$nocolour, *%named-args, *@args --> Int) {
+    if ($nocolour && $colour) || (!$nocolour && !$colour) {
+        $*ERR.say: "Error: you cannot have both  --nocolour and --colour";
+        exit 1;
+    }
+    #$nocolour = $nocolour && !$colour;
+    say-coloured($*USAGE, $nocolour, |%named-args, |@args);
+    exit 0;
+}
+
+multi sub GENERATE-USAGE(&main, |capture --> Int) {
+    my @capture = |(capture.list);
+    my @_capture;
+    if @capture && @capture[0] eq 'help' {
+        @_capture = |@capture[1 .. *];
+    } else {
+        @_capture = |@capture;
+    }
+    my %capture = |(capture.hash);
+    if %capture«nocolour» || %capture«nocolor» || %capture«n» {
+        say-coloured($*USAGE, True, |%capture, |@_capture);
+    } else {
+        #dd @capture;
+        say-coloured($*USAGE, False, |%capture, |@_capture);
+        #&*GENERATE-USAGE(&main, |capture)
+    }
     exit 0;
 }
