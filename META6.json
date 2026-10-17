@@ -13,7 +13,7 @@
   "authors": [
     "Francis Grizzly Smit <grizzly@smit.id.au>"
   ],
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A Raku program to fix borked (broken) terminals.",
   "test-depends": [
     ""

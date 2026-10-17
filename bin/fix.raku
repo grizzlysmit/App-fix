@@ -31,12 +31,12 @@ Table of  Contents
 
 =end pod
 
-my Version:D $version = v0.1.6;
+my Version:D $version = v0.1.7;
 
 =begin pod
 
 
-=VERSION v0.1.6
+=VERSION v0.1.7
 =TITLE App::fix
 =SUBTITLE A Raku program to fix borked (broken) terminals.
 
@@ -94,19 +94,22 @@ multi sub MAIN(Bool:D :v(:$version) = False,
                     Bool:D :h(:$help) = False,
                     Bool:D :n(:nocolor(:$nocolour)) is copy = False,
                     Bool:D :c(:color(:$colour)) = !$nocolour --> Int:D) {
+    if ($nocolour && $colour) || (!$nocolour && !$colour) {
+        $*ERR.say: "Error: you cannot have both  --nocolour and --colour";
+        exit 1;
+    }
+    #$nocolour = $nocolour && !$colour;
     if $help {
         my %named-args;
         my @args;
-        if ($nocolour && $colour) || (!$nocolour && !$colour) {
-            $*ERR.say: "Error: you cannot have both  --nocolour and --colour";
-            exit 1;
-        }
-        #$nocolour = $nocolour && !$colour;
         say-coloured($*USAGE, $nocolour, |%named-args, |@args);
         exit 0;
     }
     if $version {
-        say version();
+        #say version();
+        my %named-args;
+        my @args;
+        say-version-coloured(version(), $nocolour, |%named-args, |@args);
         exit 0;
     }
     my $flags := Term::termios.new(:fd($*IN.native-descriptor)).getattr;
@@ -145,12 +148,26 @@ multi sub GENERATE-USAGE(&main, |capture --> Int) {
         @_capture = |@capture;
     }
     my %capture = |(capture.hash);
+    my Bool:D $nocolour = False;
     if %capture«nocolour» || %capture«nocolor» || %capture«n» {
-        say-coloured($*USAGE, True, |%capture, |@_capture);
-    } else {
-        #dd @capture;
-        say-coloured($*USAGE, False, |%capture, |@_capture);
-        #&*GENERATE-USAGE(&main, |capture)
+        $nocolour = True;
     }
-    exit 0;
+    my Bool:D $colour = False;
+    if %capture«colour» || %capture«color» || %capture«c» {
+        $colour = True;
+    }
+    for @_capture -> $arg {
+        given $arg {
+            when '--nocolour'|'--nocolor'|'-n' { $nocolour = True; }
+            when '--colour'|'--color'|'-c'     { $colour = True; }
+        }
+    }
+    $colour = True if $nocolour == False && $colour == False;
+    if ($nocolour && $colour) || (!$nocolour && !$colour) {
+        $*ERR.say: "Error: you cannot have both  --nocolour and --colour";
+        exit 1;
+    }
+    #$nocolour = $nocolour && !$colour;
+    say-coloured($*USAGE, $nocolour, |%capture, |@_capture);
+    exit 2;
 }
