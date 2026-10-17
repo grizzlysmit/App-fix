@@ -35,12 +35,12 @@ Table of  Contents
 
 =end pod
 
-my Version:D $version = v0.1.8;
+my Version:D $version = v0.1.9;
 
 =begin pod
 
 
-=VERSION v0.1.8
+=VERSION v0.1.9
 =TITLE App::fix
 =SUBTITLE A Raku program to fix borked (broken) terminals.
 
