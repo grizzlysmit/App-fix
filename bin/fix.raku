@@ -5,6 +5,10 @@ use Terminal::ANSI::OO :t;
 use Term::termios;
 use Usage::Utils;
 
+my %*SUB-MAIN-OPTS;
+%*SUB-MAIN-OPTS«named-anywhere» = True;
+%*SUB-MAIN-OPTS«bundling»       = True;
+
 =begin pod
 
 =head1 App::Fix::term
@@ -31,12 +35,12 @@ Table of  Contents
 
 =end pod
 
-my Version:D $version = v0.1.7;
+my Version:D $version = v0.1.8;
 
 =begin pod
 
 
-=VERSION v0.1.7
+=VERSION v0.1.8
 =TITLE App::fix
 =SUBTITLE A Raku program to fix borked (broken) terminals.
 
