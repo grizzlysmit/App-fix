@@ -35,12 +35,12 @@ Table of  Contents
 
 =end pod
 
-my Version:D $version = v0.1.9;
+my Version:D $version = v0.1.10;
 
 =begin pod
 
 
-=VERSION v0.1.9
+=VERSION v0.1.10
 =TITLE App::fix
 =SUBTITLE A Raku program to fix borked (broken) terminals.
 
@@ -95,9 +95,17 @@ sub version(--> Version:D){
 }
 
 multi sub MAIN(Bool:D :v(:$version) = False,
-                    Bool:D :h(:$help) = False,
+                    Bool:D :h(:$help) = False, 
+                    Bool:D :s(:$syntax) = False,
                     Bool:D :n(:nocolor(:$nocolour)) is copy = False,
-                    Bool:D :c(:color(:$colour)) = !$nocolour --> Int:D) {
+                    Bool:D :c(:color(:$colour)) is copy = !$nocolour || $syntax --> Int:D) {
+    if ($nocolour && $syntax) {
+        $*ERR.say: "Error: you cannot have both  --nocolour and --syntax";
+        exit 1;
+    }
+    if $syntax {
+        $colour = True;
+    }
     if ($nocolour && $colour) || (!$nocolour && !$colour) {
         $*ERR.say: "Error: you cannot have both  --nocolour and --colour";
         exit 1;
@@ -113,7 +121,7 @@ multi sub MAIN(Bool:D :v(:$version) = False,
         #say version();
         my %named-args;
         my @args;
-        say-version-coloured(version(), $nocolour, |%named-args, |@args);
+        say-version-coloured(version(), !$nocolour, $syntax, |%named-args, |@args);
         exit 0;
     }
     my $flags := Term::termios.new(:fd($*IN.native-descriptor)).getattr;
